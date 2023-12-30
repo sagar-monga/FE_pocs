@@ -21,3 +21,24 @@ Because is react, the render method expects the keys like type, props, children 
 if(condition)
 ```
 doesn't satisfy the type signature, we can only use <b>Evaluated Expressions</b>
+
+## Linting your commit messages
+1. Install
+npm install @commitlint/cli @commitlint/config-conventional --save-dev
+2. Add config to commitlint.config.js
+module.exports = {
+    extends: [
+        "@commitlint/config-conventional"
+    ],
+}
+3. Install husky to run commitlint as a pre-commit hook
+npm install husky --save-dev
+4. enable husky hooks
+npx husky install
+5. Enable husky hooks upon installation
+npm set-script prepare "husky install"
+if doesnt worjk, use
+npm pkg set scripts.prepare="husky install"
+6. Add a pre commit hook
+npx husky add .husky/commit-msg "npx --no -- commitlint --edit $1"
+7. Done
