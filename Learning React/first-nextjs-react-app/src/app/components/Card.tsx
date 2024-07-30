@@ -21,6 +21,6 @@ export default function Card() {
 					Read
 				</button>
 			</div>
-		</div>
+		</div> 
 	);
 }
