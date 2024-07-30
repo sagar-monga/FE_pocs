@@ -20,7 +20,7 @@ Because is react, the render method expects the keys like type, props, children 
 ```
 if(condition)
 ```
-doesn't satisfy the type signature, we can only use <b>Evaluated Expressions</b>
+doesn't satisfy the type signature, we can only use **Evaluated Expressions**
 
 ## Linting your commit messages
 1. Install
@@ -42,3 +42,8 @@ npm pkg set scripts.prepare="husky install"
 6. Add a pre commit hook
 npx husky add .husky/commit-msg "npx --no -- commitlint --edit $1"
 7. Done
+
+### Virtual DOM
+- Important but **NOT USED in REACT NOW**
+- createRoot creates a DOM-like structure called the Virtual DOM. Compares this DOM with the main DOM and updates the things which have changed. The browser DOM "repaints" (Destroys & reconstructs) the tree.
+- https://youtu.be/MPCVGFvgVEQ?si=dIc7jIeaG5HvYXc0
