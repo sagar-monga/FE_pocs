@@ -8,8 +8,7 @@ import {
 
 function App() {
 	const [password, setPassword] = useState("");
-	// const [length, setLength] = useState(8);
-	const length = 8;
+	const [length, setLength] = useState(8);
 	const [isNumeric, setIsNumeric] = useState(false);
 	const [isSpecial, setIsSpecial] = useState(false);
 
@@ -53,18 +52,18 @@ function App() {
 
 	useEffect(() => {
 		checkPasswordTypeAndGeneratePassword();
-	}, [isNumeric, isSpecial]);
+	}, [isNumeric, isSpecial, length]);
 
 	return (
 		<div className="bg-black w-full h-screen flex justify-center items-center">
 			<div className="bg-gray-500 min-w-[800px] min-h-[400px] rounded-3xl shadow-lg shadow-gray-600 flex flex-col justify-center items-center">
-				<div className="flex">
+				<div className="flex min-w-[450px]">
 					<input
 						type="text"
-						className="bg-white h-full px-2 py-1 min-h-[40px]"
+						className="bg-white h-full px-4 py-1 min-h-[40px] rounded-l-3xl flex-1"
 						value={password}
 						onChange={(event) => setPassword(event.target.value)}
-					></input>
+					/>
 					<button
 						className="outline-none bg-blue-400 px-3 py-1"
 						// Copies state to clipboard
@@ -73,20 +72,20 @@ function App() {
 						Copy
 					</button>
 					<button
-						className="outline-none bg-red-400 px-3 py-1"
+						className="outline-none bg-red-400 px-3 py-1 rounded-r-3xl"
 						onClick={checkPasswordTypeAndGeneratePassword}
 					>
 						Regenerate
 					</button>
 				</div>
-				<div className="bg-green-500 min-w-[300px] min-h-[40px] flex justify-evenly items-center mt-5 rounded-full">
+				<div className="bg-green-500 min-w-[450px] min-h-[40px] flex justify-evenly items-center mt-5 rounded-full">
 					<div className="flex items-baseline">
 						<input
 							type="checkbox"
 							checked={isNumeric}
 							onChange={(event) => setIsNumeric(event.target.checked)}
 						/>
-						<span>Numeric</span>
+						<span className="mx-1">Numeric</span>
 					</div>
 					<div className="flex items-baseline">
 						<input
@@ -94,9 +93,18 @@ function App() {
 							checked={isSpecial}
 							onChange={(event) => setIsSpecial(event.target.checked)}
 						/>
-						<span>Special</span>
+						<span className="mx-1">Special</span>
 					</div>
-					<span>{`Length: ${length}`}</span>
+					<div className="flex items-center">
+						<input
+							type="range"
+							value={length}
+							min={5}
+							max={20}
+							onChange={(event) => setLength(parseInt(event.target.value))}
+						/>
+						<span className="px-2">{`Length (${length})`}</span>
+					</div>
 				</div>
 			</div>
 		</div>
