@@ -96,6 +96,7 @@ function App() {
 						/>
 						<span>Special</span>
 					</div>
+					<span>{`Length: ${length}`}</span>
 				</div>
 			</div>
 		</div>
