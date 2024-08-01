@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import {
 	alphabets,
 	numbers,
@@ -11,6 +11,7 @@ function App() {
 	const [length, setLength] = useState(8);
 	const [isNumeric, setIsNumeric] = useState(false);
 	const [isSpecial, setIsSpecial] = useState(false);
+	const passwordRef = useRef(null);
 
 	const generatePassword = (type: PasswordType) => {
 		const characterArray = [];
@@ -50,6 +51,11 @@ function App() {
 		generatePassword(passwordType);
 	}, [isNumeric, isSpecial, length, setPassword]);
 
+	const copyPasswordtoClipboard = useCallback(() => {
+		passwordRef.current?.select();
+		navigator.clipboard.writeText(password)
+	}, [password]);
+
 	useEffect(() => {
 		checkPasswordTypeAndGeneratePassword();
 	}, [isNumeric, isSpecial, length]);
@@ -60,19 +66,20 @@ function App() {
 				<div className="flex min-w-[500px]">
 					<input
 						type="text"
+						ref={passwordRef}
 						className="bg-white h-full px-4 py-1 min-h-[40px] rounded-l-3xl flex-1"
 						value={password}
-						onChange={(event) => setPassword(event.target.value)}
+						readOnly
 					/>
 					<button
-						className="outline-none bg-blue-400 px-3 py-1"
+						className="outline-none bg-blue-400 px-3 py-1 hover:bg-blue-600 hover:text-white "
 						// Copies state to clipboard
-						onClick={() => navigator.clipboard.writeText(password)}
+						onClick={copyPasswordtoClipboard}
 					>
 						Copy
 					</button>
 					<button
-						className="outline-none bg-red-400 px-3 py-1 rounded-r-3xl"
+						className="outline-none bg-red-400 px-3 py-1 rounded-r-3xl hover:bg-red-600 hover:text-white"
 						onClick={checkPasswordTypeAndGeneratePassword}
 					>
 						Regenerate
@@ -82,22 +89,35 @@ function App() {
 					<div className="flex items-baseline">
 						<input
 							type="checkbox"
+							className="cursor-pointer"
 							checked={isNumeric}
 							onChange={(event) => setIsNumeric(event.target.checked)}
 						/>
-						<span className="mx-1">Numeric</span>
+						<span
+							className="mx-1 cursor-pointer"
+							onClick={() => setIsNumeric((prev) => !prev)}
+						>
+							Numeric
+						</span>
 					</div>
 					<div className="flex items-baseline">
 						<input
 							type="checkbox"
+							className="cursor-pointer"
 							checked={isSpecial}
 							onChange={(event) => setIsSpecial(event.target.checked)}
 						/>
-						<span className="mx-1">Special</span>
+						<span
+							className="mx-1 cursor-pointer"
+							onClick={() => setIsSpecial((prev) => !prev)}
+						>
+							Special
+						</span>
 					</div>
 					<div className="flex items-center">
 						<input
 							type="range"
+							className="cursor-pointer"
 							value={length}
 							min={5}
 							max={20}
