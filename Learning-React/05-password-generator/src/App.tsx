@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
 	alphabets,
 	numbers,
@@ -42,13 +42,13 @@ function App() {
 		setPassword(generatedPass);
 	};
 
-	const checkPasswordTypeAndGeneratePassword = () => {
+	const checkPasswordTypeAndGeneratePassword = useCallback(() => {
 		let passwordType = PasswordType.Alphabetical;
 		if (isNumeric && isSpecial) passwordType = PasswordType.All;
 		else if (isNumeric) passwordType = PasswordType.AlphaNumeric;
 		else if (isSpecial) passwordType = PasswordType.AlphaSpecial;
 		generatePassword(passwordType);
-	};
+	}, [isNumeric, isSpecial, length, setPassword]);
 
 	useEffect(() => {
 		checkPasswordTypeAndGeneratePassword();
