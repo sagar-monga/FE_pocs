@@ -53,7 +53,7 @@ function App() {
 
 	const copyPasswordtoClipboard = useCallback(() => {
 		passwordRef.current?.select();
-		navigator.clipboard.writeText(password)
+		navigator.clipboard.writeText(password);
 	}, [password]);
 
 	useEffect(() => {
@@ -61,31 +61,30 @@ function App() {
 	}, [isNumeric, isSpecial, length]);
 
 	return (
-		<div className="bg-black w-full h-screen flex justify-center items-center">
-			<div className="bg-gray-500 min-w-[800px] min-h-[400px] rounded-3xl shadow-lg shadow-gray-600 flex flex-col justify-center items-center">
-				<div className="flex min-w-[500px]">
+		<div className="bg-black w-full min-h-screen flex justify-center items-center">
+			<div className="bg-gray-500 w-full max-w-[min(800px,90%)] h-full max-h-[400px] rounded-3xl shadow-lg shadow-gray-600 flex flex-col justify-center items-center py-10">
+				<div className="flex w-full max-w-[500px] flex-wrap">
 					<input
 						type="text"
 						ref={passwordRef}
-						className="bg-white h-full px-4 py-1 min-h-[40px] rounded-l-3xl flex-1"
+						className="bg-white w-full min-w-0 flex-1 px-4 py-2 min-h-[40px] rounded-l-3xl"
 						value={password}
 						readOnly
 					/>
 					<button
-						className="outline-none bg-blue-400 px-3 py-1 hover:bg-blue-600 hover:text-white "
-						// Copies state to clipboard
+						className="outline-none bg-blue-400 px-3 py-2 hover:bg-blue-600 hover:text-white rounded-none"
 						onClick={copyPasswordtoClipboard}
 					>
 						Copy
 					</button>
 					<button
-						className="outline-none bg-red-400 px-3 py-1 rounded-r-3xl hover:bg-red-600 hover:text-white"
+						className="outline-none bg-red-400 px-3 py-2 rounded-r-3xl hover:bg-red-600 hover:text-white"
 						onClick={checkPasswordTypeAndGeneratePassword}
 					>
 						Regenerate
 					</button>
 				</div>
-				<div className="bg-green-500 min-w-[500px] min-h-[40px] flex justify-evenly items-center mt-5 rounded-full">
+				<div className="bg-green-500 w-full max-w-[500px] min-h-[40px] flex justify-evenly items-center mt-5 rounded-full flex-wrap">
 					<div className="flex items-baseline">
 						<input
 							type="checkbox"
